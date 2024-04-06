@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import AuthField from '../components/AuthField';
 // import { signup } from '../slices/authSlice';
 import {data as authDataFieldJson} from '../components/authFieldData'
+import { useStudentRegisterMutation } from '@/redux/service/user/authApi';
 const Signup = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -14,14 +15,18 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   });
-
+  const [studentRegister,{isError,error,data}] =  useStudentRegisterMutation();
+  console.log(error);
+  console.log(data)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    // dispatch(signup(formData));
+    
+    studentRegister(formData)
+     
   };
 
   return (
@@ -29,7 +34,7 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         {
-            authDataFieldJson.map((authField,index)=><AuthField authField={authField} key={index}   />)
+            authDataFieldJson.map((authField,index)=><AuthField authField={authField} key={index} handleChange={handleChange}  />)
         }
         <div className="flex items-center justify-between">
           <button

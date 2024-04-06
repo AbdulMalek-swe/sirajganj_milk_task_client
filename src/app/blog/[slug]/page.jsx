@@ -1,20 +1,30 @@
+"use client"
+import { useGetBlogByIdQuery } from '@/redux/service/blog/useApi';
+import { organizedDate } from '@/utils/organizedDate';
 import React from 'react';
 
-const Home = () => {
+const Page = ({params}) => {
+  console.log( params,"what is problem")
+  let id = params?.slug;
+  const {data,isLoading} =  useGetBlogByIdQuery({id})
+   if(isLoading){
+    return <div>loading...</div>
+   }
+   const {title,createdAt,category,description,mainContent,img} = data?.result;
     return (
         <div>
-         <div class=" py-12">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold mb-6">Blog Post Title</h1>
-    <div class="flex items-center text-gray-600 mb-4">
-      <span class="mr-4"><i class="far fa-calendar-alt"></i> April 3, 2024</span>
-      <span class="mr-4"><i class="far fa-folder"></i> Category</span>
+         <div className=" py-12">
+  <div className="max-w-4xl mx-auto">
+    <h1 className="text-4xl font-bold mb-6"> {title} </h1>
+    <div className="flex items-center text-gray-600 mb-4">
+      <span className="mr-4"><i className="far fa-calendar-alt"></i>{organizedDate(createdAt)}</span>
+      <span className="mr-4"><i className="far fa-folder"></i> {category}</span>
     </div>
-    <img src="https://via.placeholder.com/800x400" alt="Blog Post Image" class="w-full mb-8 rounded-lg"/>
-    <div class="leading-7 text-gray-800">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod odio eu risus fermentum, id facilisis sapien lacinia. Nam eleifend consectetur nunc, vitae blandit lectus suscipit vel. Nullam semper risus velit, vel fringilla erat consectetur a.</p>
-      <p class="mt-4">Duis ut dapibus turpis. Duis dictum, urna at sagittis tincidunt, odio quam volutpat ante, nec lacinia turpis purus vel libero. Suspendisse sed velit consequat, accumsan nisl id, vehicula nulla. Ut vitae risus ac mi volutpat sollicitudin.</p>
-      <p class="mt-4">Proin quis magna sed leo posuere eleifend. Etiam maximus sit amet dui ut vehicula. Vivamus quis suscipit libero. Nullam pharetra nisi vitae efficitur sollicitudin.</p>
+    <img src={img}  alt= {title.slice(0,2)} className="w-full mb-8 rounded-lg"/>
+    <div className="leading-7 text-gray-800">
+      <h3 className='px-3 bg-blue-300/60 text-white rounded-md'> Main content:- {mainContent}</h3>
+      <p className="mt-4 bg-blue-100 text-black px-3 rounded-md ">Description:- {description}</p>
+    
     </div>
   </div>
 </div>
@@ -23,4 +33,4 @@ const Home = () => {
     );
 };
 
-export default Home; 
+export default Page; 

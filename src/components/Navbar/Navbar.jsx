@@ -11,9 +11,10 @@ const Navbar = () => {
                     <a href="#" className="text-white text-lg font-semibold">Logo</a>
                 </div>
                 <div className="hidden md:flex">
-                    <Link href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Home</Link>
-                    <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">About</a>
-                    <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Services</a>
+                    <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Home</Link>
+                    <Link href="/category/travel" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Travel</Link>
+                    <Link href="/category/technology" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Technology</Link>
+                    <Link href="/category/lifestyle" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Lifestyle</Link>
                     <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>
                 </div>
                 <div className="md:hidden">
@@ -31,10 +32,12 @@ const Navbar = () => {
             {/* Mobile menu */}
             <div className={`md:hidden ${isOpen ? "" : "hidden"} absolute w-full bg-gray-800 z-50 top-16`}>
                 <div className="container mx-auto">
-                    <a href="#" className="block py-2 px-4 text-white hover:bg-gray-700">Home</a>
-                    <a href="#" className="block py-2 px-4 text-white hover:bg-gray-700">About</a>
-                    <a href="#" className="block py-2 px-4 text-white hover:bg-gray-700">Services</a>
-                    <a href="#" className="block py-2 px-4 text-white hover:bg-gray-700">Contact</a>
+                    
+                    <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Home</Link>
+                    <Link href="/category/travel" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Travel</Link>
+                    <Link href="/category/technology" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Technology</Link>
+                    <Link href="/category/lifestyle" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Lifestyle</Link>
+                    <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Login</Link>
                 </div>
             </div>
         </nav>

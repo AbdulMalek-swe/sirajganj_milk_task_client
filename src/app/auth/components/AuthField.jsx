@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye,FaEyeSlash} from "react-icons/fa";
-const AuthField = ({authField}) => {
+const AuthField = ({authField,handleChange}) => {
   const {label,type,name,id,required} = authField;
     const [toggle,setToggle] = useState(true);
     
@@ -16,7 +16,7 @@ const AuthField = ({authField}) => {
             id={id}
             name={name}
             // value={credentials.email}
-            // onChange={handleChange}
+            onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required = {required}
           />

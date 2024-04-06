@@ -1,20 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
-export const userApi = createApi({
+export const blogApi = createApi({
   reducerPath: "userApi",
   refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "http://localhost:5000/blog/",
   }),
+  tagTypes: ['Post', 'User'],
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => "users",
+    getPost: builder.query({
+      query: () =>  'get',
+      providesTags: ['Post'], 
     }),
-    getUserById: builder.query({
-      query: ({ id }) => `users/${id}`,
+    getBlogById: builder.query({
+      query: ({ id }) => `get/${id}`,
+      providesTags: (result, error, { id }) => [{ type: 'Post', id }],
+    }),
+    deleteBlogById: builder.mutation({
+      query: ({ id }) => ({
+        url: `delete/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Post'], // Invalidates the cache for blog posts after deletion
+    }),
+    createPost: builder.mutation({
+      query: (newPost) => ({
+        url: 'create',
+        method: 'POST',
+        body: newPost,
+      }),
+      invalidatesTags: ['Post'],
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUserByIdQuery } = userApi;
+export const { useDeleteBlogByIdMutation , useGetPostQuery ,useGetBlogByIdQuery,useCreatePostMutation } = blogApi;

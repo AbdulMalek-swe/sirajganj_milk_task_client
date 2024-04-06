@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userApi } from "./service/blog/useApi";
-  
+import { blogApi } from "./service/blog/useApi";
+import authSlice from "./service/user/authSlice";
+ 
 
 export const store = configureStore({
   reducer: {
-    // counterReducer,
-    [userApi.reducerPath]: userApi.reducer,
-    
+     auth:authSlice,
+    [blogApi.reducerPath]: blogApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat([userApi.middleware]),
+    getDefaultMiddleware({}).concat([blogApi.middleware]),
 });
 
 // setupListeners(store.dispatch);
