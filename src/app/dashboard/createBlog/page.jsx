@@ -12,8 +12,13 @@ const PostForm = () => {
     description: '',
     category: '',
     mainContent: '',
-    img:''
+ 
   });
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,8 +26,12 @@ const PostForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    
-    createPost(formData).unwrap().then((data) => {
+    const formDataSend = new FormData();
+    formDataSend.append('img', file);
+    for (const key in formData) {
+      formDataSend.append(key, formData[key]);
+    }
+    createPost(formDataSend).unwrap().then((data) => {
         console.log('Post created:', data);
       
       }).catch((error) => {
@@ -53,10 +62,10 @@ const PostForm = () => {
           required
         />
         <input
-          type="text"
+          
           name="img"
-          value={formData.img}
-          onChange={handleChange}
+         
+          type="file" onChange={handleFileChange}
           placeholder="Image link"
           className="block w-full border border-gray-300 rounded-md px-4 py-2 mb-4"
           required
