@@ -3,9 +3,12 @@ import { useGetBlogByIdQuery } from '@/redux/service/blog/useApi';
 import { organizedDate } from '@/utils/organizedDate';
 import Image from 'next/image';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Page = ({params}) => {
   console.log( params,"what is problem")
+  const state = useSelector(state=>state)
+  console.log(state,"state")
   let id = params?.slug;
   const {data,isLoading,error} =  useGetBlogByIdQuery({id})
    if(isLoading){

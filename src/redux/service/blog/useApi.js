@@ -6,13 +6,17 @@ export const blogApi = createApi({
   refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/blog/",
-     prepareHeaders:headers=>{
-      if (typeof window !== undefined) {
-        const  {token}= JSON.parse(localStorage.getItem("auth"));
-        if (token) headers.set('authorization', `Bearer ${token}`)
+    prepareHeaders: (headers) => {
+      // Check if localStorage is available
+      if (typeof window !== 'undefined') {
+        const auth = JSON.parse(localStorage.getItem("auth"));
+        const token = auth?.token;
+        if (token) {
+          headers.set('Authorization', `Bearer ${token}`);
+        }
       }
-      return headers 
-     }
+      return headers;
+    }
   }),
   tagTypes: ['Post', 'User'],
   endpoints: (builder) => ({

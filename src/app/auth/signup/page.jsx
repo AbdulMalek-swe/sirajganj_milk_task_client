@@ -7,7 +7,10 @@ import AuthField from '../components/AuthField';
 // import { signup } from '../slices/authSlice';
 import {data as authDataFieldJson} from '../components/authFieldData'
 import { useStudentRegisterMutation } from '@/redux/service/user/authApi';
+import { loggedIn } from '@/redux/service/user/authSlice';
+import { useRouter } from 'next/navigation';
 const Signup = () => {
+  const router = useRouter()
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
@@ -26,7 +29,8 @@ const Signup = () => {
         user: data?.user,
       })
     );
-
+    dispatch(loggedIn(data))
+    router.push("/")
   }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,9 +38,7 @@ const Signup = () => {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    
     studentRegister(formData)
-     
   };
 
   return (

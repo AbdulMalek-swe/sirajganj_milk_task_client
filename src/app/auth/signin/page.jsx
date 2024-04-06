@@ -5,8 +5,12 @@ import AuthField from '../components/AuthField';
 import { data as authDataFieldJson } from '../components/authFieldData';
 import axios from 'axios';
 import { useSignInMutation } from '@/redux/service/user/authApi';
+import { useDispatch } from 'react-redux';
+import { loggedIn } from '@/redux/service/user/authSlice';
+import { useRouter } from 'next/navigation';
 const Home = () => {
- 
+   const dispatch = useDispatch()
+   const router = useRouter()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,13 +20,23 @@ const Home = () => {
   const [signin ,{isError,error,data}] =  useSignInMutation();
   console.log(error);
   console.log(data)
+  if(data){
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        token: data?.accesstoken,
+        user: data?.user,
+      })
+    );
+    dispatch(loggedIn(data))
+    router.push("/")
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    
     signin(formData)
      
   };
