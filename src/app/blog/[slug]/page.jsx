@@ -1,14 +1,18 @@
 "use client"
 import { useGetBlogByIdQuery } from '@/redux/service/blog/useApi';
 import { organizedDate } from '@/utils/organizedDate';
+import Image from 'next/image';
 import React from 'react';
 
 const Page = ({params}) => {
   console.log( params,"what is problem")
   let id = params?.slug;
-  const {data,isLoading} =  useGetBlogByIdQuery({id})
+  const {data,isLoading,error} =  useGetBlogByIdQuery({id})
    if(isLoading){
     return <div>loading...</div>
+   }
+   if(error){
+    return <>data not found</>
    }
    const {title,createdAt,category,description,mainContent,img} = data?.result;
     return (
@@ -20,9 +24,9 @@ const Page = ({params}) => {
       <span className="mr-4"><i className="far fa-calendar-alt"></i>{organizedDate(createdAt)}</span>
       <span className="mr-4"><i className="far fa-folder"></i> {category}</span>
     </div>
-    <img src={img}  alt= {title.slice(0,2)} className="w-full mb-8 rounded-lg"/>
+    <Image  src={img}  width={1000} height={100} alt= {title.slice(0,2)} className="w-full mb-8 rounded-lg"/>
     <div className="leading-7 text-gray-800">
-      <h3 className='px-3 bg-blue-300/60 text-white rounded-md'> Main content:- {mainContent}</h3>
+      <h3 className='px-3 bg-blue-300/60 text-white rounded-md w-full h-auto'> Main content:- {mainContent}</h3>
       <p className="mt-4 bg-blue-100 text-black px-3 rounded-md ">Description:- {description}</p>
     
     </div>

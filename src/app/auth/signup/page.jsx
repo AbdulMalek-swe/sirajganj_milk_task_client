@@ -18,6 +18,16 @@ const Signup = () => {
   const [studentRegister,{isError,error,data}] =  useStudentRegisterMutation();
   console.log(error);
   console.log(data)
+  if(data){
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        token: data?.accesstoken,
+        user: data?.user,
+      })
+    );
+
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

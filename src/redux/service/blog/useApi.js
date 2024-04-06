@@ -1,11 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+ 
 
 export const blogApi = createApi({
   reducerPath: "userApi",
   refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/blog/",
+     prepareHeaders:headers=>{
+      if (typeof window !== undefined) {
+        const  {token}= JSON.parse(localStorage.getItem("auth"));
+        if (token) headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers 
+     }
   }),
   tagTypes: ['Post', 'User'],
   endpoints: (builder) => ({
@@ -32,7 +39,15 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['Post'],
     }),
+    updatePost: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `update/${id}`,  
+        method: 'PATCH', 
+        body: formData,  
+      }),
+      invalidatesTags: ['Post'], 
+    }),
   }),
 });
 
-export const { useDeleteBlogByIdMutation , useGetPostQuery ,useGetBlogByIdQuery,useCreatePostMutation } = blogApi;
+export const { useDeleteBlogByIdMutation , useGetPostQuery ,useGetBlogByIdQuery,useCreatePostMutation,useUpdatePostMutation } = blogApi;

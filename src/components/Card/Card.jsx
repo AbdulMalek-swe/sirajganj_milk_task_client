@@ -9,7 +9,7 @@ const Card = ({blog}) => {
     return (
   <div class="blog-card transition duration-300 ease-in-out    bg-white border-2 border-pink-600 text-center cursor-pointer hover:shadow-md">
     <div class="card-img relative text-center bg-pink-600">
-      <img src= {img}  class="transition duration-300 ease-in-out max-h-48 w-full border-b-4 border-pink-600" alt={title.slice(0,2)}/>
+      <Image  src= {img} width={1000} height={500} class="transition duration-300 ease-in-out max-h-48 w-full border-b-4 h-auto border-pink-600" alt={title.slice(0,2)} loading="lazy"/>
       <h1 class="absolute bottom-0 w-full text-white font-slabo capitalize bg-gray-400 py-1 "> {title} </h1>
     </div>
     <div class="card-details mt-8 font-roboto text-gray-700">

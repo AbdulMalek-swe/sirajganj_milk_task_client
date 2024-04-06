@@ -6,6 +6,7 @@ export const authApi = createApi({
   refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/user/",
+   
   }),
  
   endpoints: (builder) => ({

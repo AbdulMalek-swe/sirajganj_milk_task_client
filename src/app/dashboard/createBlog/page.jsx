@@ -36,10 +36,9 @@ const PostForm = () => {
       
       }).catch((error) => {
         console.error('Error creating post:', error);
-         
       });
     setFormData({
-        img:'',
+          
       title: '',
       description: '',
       category: '',

@@ -1,13 +1,13 @@
 import { useDeleteBlogByIdMutation, useGetPostQuery } from '@/redux/service/blog/useApi';
 import { organizedDate } from '@/utils/organizedDate';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import Update from './Update';
 
-const Card = ({ blog }) => {
+const Card = ({ blog, handleModalOpen }) => {
   const { title, img, description, category, maincontent, createdAt, _id } = blog;
   const [    deleteBlogById ] = useDeleteBlogByIdMutation()
   const handleDelete = async(id)=>{
-  
     try {
         await   deleteBlogById({id})
         // Redirect or perform any other action after successful deletion
@@ -15,6 +15,8 @@ const Card = ({ blog }) => {
         console.error('Failed to delete blog:', error);
       }
   }
+  // open modal for update 
+  
   return (
     <tr className="transition duration-300 ease-in-out bg-white border-2 border-pink-600 text-center cursor-pointer hover:shadow-md">
       <td className="relative text-center  ">
@@ -28,17 +30,31 @@ const Card = ({ blog }) => {
         <p>{description}</p>
       </td>
       <td>
+
         <button  onClick={()=>handleDelete(_id) } className="read-more transition duration-300 ease-in-out inline-block uppercase bg-pink-600 text-white py-2 px-6 mb-4 font-oswald hover:bg-pink-700 rounded-md">delete</button>
+        <button  onClick={()=>handleModalOpen(_id) } className="read-more transition duration-300 ease-in-out inline-block uppercase bg-pink-600 text-white py-2 px-6 mb-4 font-oswald hover:bg-pink-700 rounded-md">Edit</button>
       </td>
     </tr>
   );
 };
 
 const Table = ( ) => {
-    const {data,isLoading}  = useGetPostQuery();
+    const {data,isLoading,error}  = useGetPostQuery();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [id,setId] = useState("")
     if(isLoading){
         return <div>loading...</div>
     }
+    if(error){
+      return <>loading...</>
+    }
+    const handleModalOpen =(id)=>{
+      setIsModalOpen(true);
+      setId(id)
+    }
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
   return (
     <table className="table-auto w-full">
       <thead>
@@ -50,9 +66,10 @@ const Table = ( ) => {
         </tr>
       </thead>
       <tbody>
-        {data?.result?.map(blog => (
-          <Card key={blog._id} blog={blog} />
+        { data?.result && data?.result?.map(blog => (
+          <Card key={blog._id} blog={blog} handleModalOpen={handleModalOpen}/>
         ))}
+        <Update  isOpen={isModalOpen} onClose={closeModal} id={id}/>
       </tbody>
     </table>
   );

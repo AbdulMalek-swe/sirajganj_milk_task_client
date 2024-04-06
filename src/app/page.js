@@ -6,13 +6,16 @@ import { useState } from "react";
 
 export default function Home() {
   const [search,setSearch] = useState("")
-  const {data,isLoading}  = useGetPostQuery();
+  const {data,isLoading,error}  = useGetPostQuery();
   const filteredData = search ? 
   data?.result.filter(blog =>
     blog.title.toLowerCase().includes(search.toLowerCase())
   ) : data?.result;
   if(isLoading){
     return <div>loading...</div>
+  }
+  if(error){
+    return <>no data found...</>
   }
   return (
    <>
