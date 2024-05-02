@@ -9,20 +9,8 @@ import { loggedIn } from "./service/user/authSlice";
 import Navbar from "@/components/Navbar/Navbar";
  
 const CustomProvider = ({ children }) => {
-  const router = useRouter()
-  const path = usePathname();
-   
-  const local = JSON.parse(localStorage.getItem("auth"));
   
-    if(local?.token){
-        store.dispatch(loggedIn({accesstoken:local?.token,user:local?.user}))
-    }
-  if (path.includes("dashboard") && local?.user?.role !== "admin") {
-   return router.push('/');
-  }
-  if(path.includes("auth") &&local?.token){
-    return router.push('/');
-  }
+    
   return <Provider store={store}><Navbar/> {children}</Provider>;
 };
 

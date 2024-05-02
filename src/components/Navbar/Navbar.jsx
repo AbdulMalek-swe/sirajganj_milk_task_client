@@ -29,10 +29,10 @@ const Navbar = () => {
                     <Link href="/category/technology" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Technology</Link>
                     <Link href="/category/lifestyle" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Lifestyle</Link>
                    
-                    {state?.user?.role=="admin" &&<Link href="/dashboard/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Create Blog</Link>}
-                    {state?.user?.role=="admin" &&<Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Action Blog</Link>}
-                    {!state?.token &&<Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>}
-                    {state?.token &&<button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md" onClick={()=>handleLogout()}>Logout</button>}
+                  <Link href="/dashboard/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Create Blog</Link>
+                    <Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Action Blog</Link>
+                  <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>
+                    <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md" onClick={()=>handleLogout()}>Logout</button>
                 </div>
                 <div className="md:hidden">
                     <button
@@ -57,7 +57,7 @@ const Navbar = () => {
                     {state?.user?.role=="admin" &&<Link href="/dashboard/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Create Blog</Link>}
                     {state?.user?.role=="admin" &&<Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Action Blog</Link>}
                     {!state?.token &&<Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Login</Link>}
-                    {state?.token &&<button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block" onClick={()=>handleLogout()}>Logout</button>}
+                    <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block" onClick={()=>handleLogout()}>Logout</button>
                 </div>
             </div>
         </nav>

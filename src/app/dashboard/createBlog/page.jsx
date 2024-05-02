@@ -2,7 +2,8 @@
 import { useCreatePostMutation  } from '@/redux/service/blog/useApi';
 // components/PostForm.js
 import { useState } from 'react';
- 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 // import { addPost } from '../redux/postsSlice';
 
 const PostForm = () => {
@@ -12,7 +13,6 @@ const PostForm = () => {
     description: '',
     category: '',
     mainContent: '',
- 
   });
   const [file, setFile] = useState(null);
 
@@ -41,11 +41,10 @@ const PostForm = () => {
           
       title: '',
       description: '',
-      category: '',
-      mainContent: '',
+      
     });
   };
-  
+  const [value, setValue] = useState('');
  
   return (
     <div className="flex flex-col justify-center my-5 items-center">
@@ -61,43 +60,15 @@ const PostForm = () => {
           required
         />
         <input
-          
           name="img"
-         
           type="file" onChange={handleFileChange}
           placeholder="Image link"
           className="block w-full border border-gray-300 rounded-md px-4 py-2 mb-4"
           required
         />
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="Description"
-          className="block w-full border border-gray-300 rounded-md px-4 py-2 mb-4"
-          required
-        />
-        <select
-  name="category"
-  value={formData.category}
-  onChange={handleChange}
-  className="block w-full border border-gray-300 rounded-md px-4 py-2 mb-4"
-  required
->
-  <option value="">Select Category</option>
-  <option value="technology">Technology</option>
-  <option value="travel">Travel</option>
-  <option value="lifestyle">Lifestyle</option>
-</select>
-
-        <textarea
-          name="mainContent"
-          value={formData.mainContent}
-          onChange={handleChange}
-          placeholder="Main Content"
-          className="block w-full border border-gray-300 rounded-md px-4 py-2 mb-4"
-        />
+         <ReactQuill    className="  text-white" value={value} onChange={setValue} />;
+       
+ 
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
