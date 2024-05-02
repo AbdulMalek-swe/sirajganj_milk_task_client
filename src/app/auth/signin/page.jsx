@@ -7,11 +7,10 @@ import { data as authDataFieldJson } from '../components/authFieldData';
 import { useDispatch } from 'react-redux';
 import { loggedIn } from '@/redux/service/user/authSlice';
 import { useRouter } from 'next/navigation';
-import { useExampleQuery } from './features/loginApi';
+import { useGetPostQuery } from '@/redux/service/blog/useApi';
  
 const Home = () => {
-  const sd = useExampleQuery()
-
+   useGetPostQuery()
    const dispatch = useDispatch()
    const router = useRouter()
   const [formData, setFormData] = useState({

@@ -8,13 +8,13 @@ export const store = configureStore({
   reducer: {
      auth:authSlice,
      [apiSlice.reducerPath] : apiSlice.reducer,
-    // [blogApi.reducerPath]: blogApi.reducer,
+    [blogApi.reducerPath]: blogApi.reducer,
   
      
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat( [apiSlice.middleware]),
+    getDefaultMiddleware({}).concat( [blogApi.middleware, apiSlice.middleware]),
 });
 
 // setupListeners(store.dispatch);
