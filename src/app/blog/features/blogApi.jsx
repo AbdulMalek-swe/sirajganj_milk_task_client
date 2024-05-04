@@ -45,6 +45,42 @@ export const blogApiSlice = apiSlice.injectEndpoints({
         } catch (error) {}
       }
     }),
+    updateBlog: builder.mutation({
+      query: ({id,content}) => ({
+        url:  `blog/update/${id}`,
+        method: 'PATCH',
+        body: content
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+
+        try {
+          const { data } = await queryFulfilled;
+          
+        } catch (error) {}
+      }
+    }),
+    deleteBlog: builder.mutation({
+      query: (id) => ({
+        url: `/blog/delete/${id}`,
+        method: 'DELETE'
+      }),
+       
+      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      //   // optimistic update, update when getTask's cache, when task is deleted
+      //   console.log(apiSlice.util, 'role');
+      //   const patchResult = dispatch(
+      //     apiSlice.util.updateQueryData('getRoles', undefined, (draft) => {
+      //       return draft.filter((role) => role.uid !== arg);
+      //     })
+      //   );
+
+      //   try {
+      //     await queryFulfilled;
+      //   } catch (err) {
+      //     patchResult.undo();
+      //   }
+      // }
+    }),
     // comments create 
     getComment: builder.query({
       query: (postId) => ({
@@ -114,4 +150,4 @@ export const blogApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetBlogQuery , useGetSingleBlogQuery, useCreateBlogMutation,useCreateCommentMutation ,useGetCommentQuery ,useDeleteCommentMutation,useUpdateCommentMutation } = blogApiSlice;
+export const { useGetBlogQuery , useGetSingleBlogQuery, useCreateBlogMutation,useCreateCommentMutation ,useGetCommentQuery ,useDeleteCommentMutation,useUpdateCommentMutation,useDeleteBlogMutation,useUpdateBlogMutation } = blogApiSlice;

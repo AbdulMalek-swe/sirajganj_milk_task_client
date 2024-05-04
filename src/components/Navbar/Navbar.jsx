@@ -31,10 +31,10 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:flex">
                     <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Home</Link>
-                    
+                     
                    
                   <Link href="/blog/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Create Blog</Link>
-                    <Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Action Blog</Link>
+                    
              { !token &&     <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>}
                    { token && <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md" onClick={()=>handleLogout()}>Logout</button>}
                 </div>
@@ -57,7 +57,7 @@ const Navbar = () => {
                     <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Home</Link>
                    
                  <Link href="/blog/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Create Blog</Link>
-                 <Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Action Blog</Link>
+             
                    { !token && <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Login</Link>}
                    { token && <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block" onClick={()=>handleLogout()}>Logout</button>}
                 </div>
