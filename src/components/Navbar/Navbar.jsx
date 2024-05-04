@@ -1,22 +1,28 @@
 "use client"
-import { loggedIn, loggedOut } from '@/redux/service/user/authSlice';
+ 
+import { deleteCookie, getCookie } from '@/utils/cookies';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
  
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import React, { useEffect, useState } from 'react';
+ 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const state = useSelector(state=>state.auth)
-    const dispathc = useDispatch()
     const router =  useRouter()
-    const handleLogout = ()=>{
-        dispathc(loggedOut())
+    const [token,setToken] = useState(null);
+    const handleLogout = async()=>{
+        deleteCookie("refresh")
+        deleteCookie("access")
+        setToken(null)
+          router.push("/")
         
-        localStorage.removeItem("auth")
-        router.push("/")
     }
+   useEffect(()=>{
+  router.refresh()
+        setToken(getCookie("access"))
+     
+    
+   },[router])
     return (
         <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
@@ -25,14 +31,12 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:flex">
                     <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Home</Link>
-                    <Link href="/category/travel" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Travel</Link>
-                    <Link href="/category/technology" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Technology</Link>
-                    <Link href="/category/lifestyle" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Lifestyle</Link>
+                    
                    
-                  <Link href="/dashboard/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Create Blog</Link>
+                  <Link href="/blog/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Create Blog</Link>
                     <Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Action Blog</Link>
-                  <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>
-                    <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md" onClick={()=>handleLogout()}>Logout</button>
+             { !token &&     <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>}
+                   { token && <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md" onClick={()=>handleLogout()}>Logout</button>}
                 </div>
                 <div className="md:hidden">
                     <button
@@ -51,13 +55,11 @@ const Navbar = () => {
                 <div className="container mx-auto">
                     
                     <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Home</Link>
-                    <Link href="/category/travel" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Travel</Link>
-                    <Link href="/category/technology" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Technology</Link>
-                    <Link href="/category/lifestyle" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Lifestyle</Link>
-                    {state?.user?.role=="admin" &&<Link href="/dashboard/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Create Blog</Link>}
-                    {state?.user?.role=="admin" &&<Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Action Blog</Link>}
-                    {!state?.token &&<Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Login</Link>}
-                    <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block" onClick={()=>handleLogout()}>Logout</button>
+                   
+                 <Link href="/blog/createBlog" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Create Blog</Link>
+                 <Link href="/dashboard/blogAction" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Action Blog</Link>
+                   { !token && <Link href="/auth/signin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block">Login</Link>}
+                   { token && <button className="text-white hover:bg-gray-700 px-3 py-2 rounded-md block" onClick={()=>handleLogout()}>Logout</button>}
                 </div>
             </div>
         </nav>

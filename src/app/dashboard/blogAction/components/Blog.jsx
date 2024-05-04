@@ -1,11 +1,11 @@
-import { useDeleteBlogByIdMutation, useGetPostQuery } from '@/redux/service/blog/useApi';
+ 
 import { organizedDate } from '@/utils/organizedDate';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Update from './Update';
 
 const Card = ({ blog, handleModalOpen }) => {
-  const { title, img, description, category, maincontent, createdAt, _id } = blog;
+  const { title, img, description,  createdAt, _id } = blog;
   const [    deleteBlogById ] = useDeleteBlogByIdMutation()
   const handleDelete = async(id)=>{
     try {
@@ -16,12 +16,11 @@ const Card = ({ blog, handleModalOpen }) => {
       }
   }
   // open modal for update 
-  
   return (
     <tr className="transition duration-300 ease-in-out bg-white border-2 border-pink-600 text-center cursor-pointer hover:shadow-md">
       <td className="relative text-center  ">
        
-        <h1 className="v text-black "> {title}</h1>
+        <h1 className=" text-black "> {title}</h1>
       </td>
       <td className="font-roboto text-gray-700">
         <span><i className="fa fa-calendar"></i>{organizedDate(createdAt)}</span>

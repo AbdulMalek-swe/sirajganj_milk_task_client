@@ -1,46 +1,39 @@
 "use client"
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthField from '../components/AuthField';
 import { data as authDataFieldJson } from '../components/authFieldData';
- 
 import { useDispatch } from 'react-redux';
-import { loggedIn } from '@/redux/service/user/authSlice';
-import { useRouter } from 'next/navigation';
-import { useGetPostQuery } from '@/redux/service/blog/useApi';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useSignInMutation } from './features/loginApi';
  
 const Home = () => {
-   useGetPostQuery()
-   const dispatch = useDispatch()
-   const router = useRouter()
+    const [signIn,{data,isLoading,isSuccess}]=useSignInMutation();
+   const queryParams = useSearchParams();
+   const callBackUrl = queryParams.get('callbackUrl');
+   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
-  // if(data){
-  //   localStorage.setItem(
-  //     "auth",
-  //     JSON.stringify({
-  //       token: data?.accessToken,
-  //       user: data?.user,
-  //     })
-  //   );
-  //   dispatch(loggedIn(data))
-  //   router.push("/")
-  // }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit =async (e) => {
     e.preventDefault();
-    // signin(formData)
-     
+    signIn(formData)
   };
-
+  // redirect when login is complete 
+  useEffect(() => {
+    if (isSuccess) {
+      if (callBackUrl) {
+        
+        router.push(callBackUrl);
+      } else router.push('/');
+    }
+  }, [callBackUrl, isSuccess, router]);
     return (
         <div className="container mx-auto mt-20">
       <form   className="max-w-md mx-auto" onSubmit={ handleSubmit}>

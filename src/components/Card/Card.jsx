@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const Card = ({blog}) => {
-  const {title,img,description , category,mainconten,createdAt,_id} = blog;
+  const {title,img,description , category, createdAt,_id} = blog;
   console.log(img);
     return (
   <div class="blog-card transition duration-300 ease-in-out    bg-white border-2 border-pink-600 text-center cursor-pointer hover:shadow-md">
@@ -20,7 +20,8 @@ const Card = ({blog}) => {
     </div>
     <p className='text-black'>{category}</p>
     <div class="card-text py-4 px-2 font-roboto leading-6 text-black">
-      <p className='text-black '> {description}</p>
+       
+       <div dangerouslySetInnerHTML={{ __html: description }}></div>
     </div>
     <Link href={`/blog/${_id}`} class="read-more transition duration-300 ease-in-out inline-block uppercase bg-pink-600 text-white py-2 px-6 mb-4 font-oswald hover:bg-pink-700 rounded-md">Read More</Link>
   </div>   

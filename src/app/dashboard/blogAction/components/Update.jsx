@@ -1,8 +1,8 @@
-import { useGetBlogByIdQuery, useUpdatePostMutation } from '@/redux/service/blog/useApi';
+ 
 import React, { useEffect, useState } from 'react';
 
 const Update = ({isOpen,onClose,id}) => {
-    const {data,isLoading} =  useGetBlogByIdQuery({id})
+    
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -20,16 +20,14 @@ const Update = ({isOpen,onClose,id}) => {
       const handleChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
-      const [updatePost,{isLoading:load}] = useUpdatePostMutation()
+     
       const handleSubmit = e => {
         e.preventDefault();
         console.log(formData,id)
-         updatePost({id,formData})
+         
       };
      
-      if(isLoading){
-       return <div>loading...</div>
-      }
+      
       
     return (
         <>

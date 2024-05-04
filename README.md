@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Task: Build a Blogging Platform
+Objective:
+Develop a feature-rich blogging platform with advanced functionalities. The platform should allow users to create, edit, and manage their blog posts, with additional features such as user authentication, rich text editing, image and video uploads, and comment management.
+ 
+Requirements:
+1. Frontend (Next.js):
+Implement a UI using Next.js Minimal UI Main focused on functionalities.
+Integrate rich text editor for creating and editing blog posts (e.g., Draft.js or Slate.js).
+Implement user authentication using JWT (JSON Web Tokens).
+Allow users to upload images and video for their blog posts (images and video is required for uploading a blog).
+Display a list of blog posts with pagination.
+Provide search functionality to search for blog posts by title or content.
+Implement client-side form validation and error handling.
 
-## Getting Started
+2. Backend (Node.js with Express):
+Set up an Express server with a modular structure.
+Implement JWT-based authentication middleware.
+Create RESTful API endpoints for user authentication, blog post-CRUD operations, and comment management.
+Store uploaded images or videos in a cloud storage service (e.g., AWS S3 or Cloudinary) and manage their URLs in the database.
+Implement server-side pagination and search functionality for blog posts.
+Implement rate limiting and security measures to prevent abuse.
+ 
+3. Database (PostgreSQL with Prisma):
+Design the database schema to support users, blog posts, and comments.
+Use Prisma for ORM and database interactions.
+Ensure data integrity with proper constraints and indexes.
+Optimize database queries for performance, especially for pagination and search operations.
+ 
+4. Authentication and Authorization: 
+Implement user registration, login, and logout functionality.
+Ensure that only authenticated users can create, edit, and delete their blog posts.
+Implement role-based access control (RBAC) if needed (e.g., admin roles for managing all posts).
+ 
+5. Comments and Interactions:
+Allow users to comment on blog posts.
+Implement features like comment moderation, editing, and deletion by authorized users.
+Implement real-time updates for comments using WebSockets or similar technologies.
+ 
+Deliverables:
+GitHub repository containing the source code.
+Documentation detailing the architecture, design decisions, and setup instructions.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -1,46 +1,42 @@
 // components/Signup.js
 "use client"
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AuthField from '../components/AuthField';
 // import { signup } from '../slices/authSlice';
 import {data as authDataFieldJson} from '../components/authFieldData'
-import { useStudentRegisterMutation } from '@/redux/service/user/authApi';
-import { loggedIn } from '@/redux/service/user/authSlice';
-import { useRouter } from 'next/navigation';
+ 
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useSignUpMutation } from '../signin/features/loginApi';
 const Signup = () => {
-  const router = useRouter()
-  const dispatch = useDispatch();
+   const [signUp,{isSuccess}] = useSignUpMutation();
+    const queryParams = useSearchParams();
+    const callBackUrl = queryParams.get('callbackUrl');
+    const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-  const [studentRegister,{isError,error,data}] =  useStudentRegisterMutation();
-  console.log(error);
-  console.log(data)
-  if(data){
-    localStorage.setItem(
-      "auth",
-      JSON.stringify({
-        token: data?.accesstoken,
-        user: data?.user,
-      })
-    );
-    dispatch(loggedIn(data))
-    router.push("/")
-  }
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    studentRegister(formData)
+    signUp(formData)
+    
   };
-
+  useEffect(() => {
+    if (isSuccess) {
+      if (callBackUrl) {
+        router.push(callBackUrl);
+      } else router.push('/');
+    }
+  }, [callBackUrl, isSuccess, router]);
   return (
     <div className="container mx-auto mt-20">
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">

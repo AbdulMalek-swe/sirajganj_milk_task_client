@@ -1,13 +1,11 @@
 "use client"
-import { useCreatePostMutation  } from '@/redux/service/blog/useApi';
-// components/PostForm.js
+ 
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// import { addPost } from '../redux/postsSlice';
-
+ 
 const PostForm = () => {
-    const [createPost, { isLoading, isError }] = useCreatePostMutation();
+    
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -31,12 +29,12 @@ const PostForm = () => {
     for (const key in formData) {
       formDataSend.append(key, formData[key]);
     }
-    createPost(formDataSend).unwrap().then((data) => {
-        console.log('Post created:', data);
+    // createPost(formDataSend).unwrap().then((data) => {
+    //     console.log('Post created:', data);
       
-      }).catch((error) => {
-        console.error('Error creating post:', error);
-      });
+    //   }).catch((error) => {
+    //     console.error('Error creating post:', error);
+    //   });
     setFormData({
           
       title: '',

@@ -1,17 +1,25 @@
-"use client";
-import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./store";
-import {  usePathname } from "next/navigation";
-import { redirect } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-import { loggedIn } from "./service/user/authSlice";
-import Navbar from "@/components/Navbar/Navbar";
- 
-const CustomProvider = ({ children }) => {
-  
-    
-  return <Provider store={store}><Navbar/> {children}</Provider>;
-};
+'use client';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
-export default CustomProvider;
+import { useEffect, useRef } from 'react';
+import { Provider } from 'react-redux';
+ 
+import Navbar from '@/components/Navbar/Navbar';
+import { makeStore } from './store';
+
+ 
+export const StoreProvider = ({ children } ) => {
+  const storeRef = useRef(null);
+  if (!storeRef.current) {
+    // Create the store instance the first time this renders
+    storeRef.current = makeStore();
+  }
+  useEffect(() => {
+    if (storeRef.current != null) {
+      const unsubscribe = setupListeners(storeRef.current.dispatch);
+      return unsubscribe;
+    }
+  }, []);
+
+  return <Provider store={storeRef.current}><Navbar/> {children}</Provider>;
+};
