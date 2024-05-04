@@ -5,7 +5,7 @@ import React from 'react';
 
 const Card = ({blog}) => {
   const {title,img,description , category, createdAt,_id} = blog;
-  console.log(img);
+   
     return (
   <div class="blog-card transition duration-300 ease-in-out    bg-white border-2 border-pink-600 text-center cursor-pointer hover:shadow-md">
     <div class="card-img relative text-center bg-pink-600">

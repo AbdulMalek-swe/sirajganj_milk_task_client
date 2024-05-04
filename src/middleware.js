@@ -15,7 +15,7 @@ export default async function middleware(req  ) {
   // Get access and refresh tokens from cookies
   const accessToken = req.cookies.get('access')?.value;
   const refreshToken = req.cookies.get('refresh')?.value;
-   
+    
   const { valid } = (await checkValidAccessToken(accessToken)) || {};
   
   const isAuthenticated = !!valid;

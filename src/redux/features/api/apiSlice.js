@@ -7,13 +7,13 @@ const mutex = new Mutex();
 
 // Create a function to retrieve the access token synchronously
 const getAccessToken = () => getCookie('access');
-console.log(getAccessToken);
+ 
 const baseQuery = fetchBaseQuery({
   baseUrl: `http://localhost:5000/`,
   prepareHeaders: (headers, { getState }) => {
     // Retrieve the access token synchronously
     const token = getAccessToken();
-    console.log(token,"problem is my token");
+ 
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
@@ -30,7 +30,7 @@ const baseQueryWithReauth  = async (
   await mutex.waitForUnlock();
 
   let result = await baseQuery(args, api, extraOptions);
-   console.log(result)
+ 
   if (result.error && result.error.status === 401) {
     // Try to get a new token
     if (!mutex.isLocked()) {

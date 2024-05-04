@@ -1,5 +1,6 @@
  
 import { apiSlice } from "@/redux/features/api/apiSlice";
+import { logout } from "@/redux/features/api/authSlice";
 import { setCookie } from "@/utils/cookies";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -14,12 +15,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
      
         try {
           const { data } = await queryFulfilled;
-          console.log(data,"come data")
+         
           const { accessToken, refreshToken } = data || {};
-          console.log(accessToken);
+        
           setCookie('access', accessToken, { expires: new Date(Date.now() + 1000 * 60 * 60*4) }); // 15 minutes in milliseconds
            setCookie('refresh', refreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) }); // 24 hours in milliseconds
-
+           dispatch(logout(accessToken))
         } catch (error) {}
       }
     }),
@@ -33,9 +34,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
      
         try {
           const { data } = await queryFulfilled;
-          console.log(data,"come data")
+          
           const { accessToken, refreshToken } = data || {};
-          console.log(accessToken);
+       
           setCookie('access', accessToken, { expires: new Date(Date.now() + 1000 * 60 * 60*4) }); // 15 minutes in milliseconds
            setCookie('refresh', refreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) }); // 24 hours in milliseconds
 

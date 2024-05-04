@@ -2,11 +2,8 @@
 "use client"
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import AuthField from '../components/AuthField';
-// import { signup } from '../slices/authSlice';
 import {data as authDataFieldJson} from '../components/authFieldData'
- 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSignUpMutation } from '../signin/features/loginApi';
 const Signup = () => {

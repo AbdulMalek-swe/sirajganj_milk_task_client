@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
  
 import Navbar from '@/components/Navbar/Navbar';
 import { makeStore } from './store';
-
+ 
  
 export const StoreProvider = ({ children } ) => {
   const storeRef = useRef(null);
@@ -20,6 +20,6 @@ export const StoreProvider = ({ children } ) => {
       return unsubscribe;
     }
   }, []);
-
+   
   return <Provider store={storeRef.current}><Navbar/> {children}</Provider>;
 };

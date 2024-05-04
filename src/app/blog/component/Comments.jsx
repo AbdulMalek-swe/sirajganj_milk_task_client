@@ -20,7 +20,7 @@ const Comments = ({postId}) => {
       setOpen(true)
        setSingleComment(comments.find((item)=>item?._id==id))
      }
-     console.log(singleComment);
+    
     return (
         <div>
            

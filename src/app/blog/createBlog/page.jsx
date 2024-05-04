@@ -7,7 +7,7 @@ import { useCreateBlogMutation } from '../features/blogApi';
 const Home = () => {
     const [value, setValue] = useState('');
     const [createBlog,{data,isError,error}]=useCreateBlogMutation();
-    console.log(data,error)
+ 
     const [formData, setFormData] = useState({
         title: '',
         

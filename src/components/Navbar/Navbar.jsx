@@ -1,28 +1,35 @@
 "use client"
  
+import { logout } from '@/redux/features/api/authSlice';
 import { deleteCookie, getCookie } from '@/utils/cookies';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
  
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
  
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const router =  useRouter()
-    const [token,setToken] = useState(null);
+    const dispatch = useDispatch()
+    // const [token,setToken] = useState(null);
+    const {token }= useSelector(state=>state?.authSlice)
+     
     const handleLogout = async()=>{
         deleteCookie("refresh")
         deleteCookie("access")
-        setToken(null)
+        
+        dispatch(logout(""))
           router.push("/")
         
     }
-   useEffect(()=>{
-  router.refresh()
-        setToken(getCookie("access"))
-     
     
-   },[router])
+  
+   useEffect(()=>{
+     if(getCookie("access")){
+      
+    dispatch(logout(getCookie("access")))
+  }},[])
     return (
         <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
