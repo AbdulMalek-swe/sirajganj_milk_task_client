@@ -74,6 +74,20 @@ export const blogApiSlice = apiSlice.injectEndpoints({
         } catch (error) {}
       }
     }),
+    updateComment: builder.mutation({
+      query: ({id,content}) => ({
+        url:  `comment/${id}`,
+        method: 'PATCH',
+        body: content
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+
+        try {
+          const { data } = await queryFulfilled;
+          
+        } catch (error) {}
+      }
+    }),
     deleteComment: builder.mutation({
       query: (id) => ({
         url: `/comment/${id}`,
@@ -100,4 +114,4 @@ export const blogApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetBlogQuery , useGetSingleBlogQuery, useCreateBlogMutation,useCreateCommentMutation ,useGetCommentQuery ,useDeleteCommentMutation } = blogApiSlice;
+export const { useGetBlogQuery , useGetSingleBlogQuery, useCreateBlogMutation,useCreateCommentMutation ,useGetCommentQuery ,useDeleteCommentMutation,useUpdateCommentMutation } = blogApiSlice;
